@@ -4,11 +4,24 @@ import os
 # Connect to the S24 Ultra camera
 camera = cv2.VideoCapture(1, cv2.CAP_MSMF)
 
+camera.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+
+print("Width:", camera.get(cv2.CAP_PROP_FRAME_WIDTH))
+print("Height:", camera.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
 # Create the images folder if it doesn't exist
 os.makedirs("images", exist_ok=True)
 
-# Start numbering saved images at 1
+# Find the highest existing image number
 image_count = 1
+
+for filename in os.listdir("images"):
+    if filename.startswith("card_") and filename.endswith(".jpg"):
+        number = filename.replace("card_", "").replace(".jpg", "")
+
+        if number.isdigit():
+            image_count = max(image_count, int(number) + 1)
 
 # Check whether the camera opened successfully
 if not camera.isOpened():
