@@ -1,0 +1,13 @@
+# Python temporary files
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+venv/
+
+# Scanned Pokemon card images
+images/
+
+# Generated Excel spreadsheets
+output/
