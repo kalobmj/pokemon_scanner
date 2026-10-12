@@ -11,3 +11,6 @@ images/
 
 # Generated Excel spreadsheets
 output/
+
+# Personal notes
+personal_notes.txt

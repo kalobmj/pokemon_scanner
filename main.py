@@ -1,6 +1,8 @@
 import cv2
 import os
 
+from test_ocr import scan_card
+
 # Connect to the S24 Ultra camera
 camera = cv2.VideoCapture(1, cv2.CAP_MSMF)
 
@@ -52,12 +54,20 @@ else:
             filename = f"images/card_{image_count}.jpg"
 
             # Save the current camera frame
-            cv2.imwrite(filename, frame)
+            saved = cv2.imwrite(filename, frame)
 
-            print(f"Saved: {filename}")
+            if saved:
+                print(f"Saved: {filename}")
 
-            # Increase the number for the next image
-            image_count += 1
+                # Increase the number for next image
+                image_count += 1
+
+                # Scan the saved image
+                print("Scanning Pokemon card...")
+                scan_card(filename)
+
+            else:
+                print("Failed to save image.")
 
         elif key == ord('q'):
             # Exit the camera loop
